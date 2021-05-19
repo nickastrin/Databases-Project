@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Φιλοξενητής: 127.0.0.1:3307
--- Χρόνος δημιουργίας: 19 Μάη 2021 στις 12:15:46
+-- Χρόνος δημιουργίας: 19 Μάη 2021 στις 12:15:36
 -- Έκδοση διακομιστή: 10.4.17-MariaDB
 -- Έκδοση PHP: 8.0.0
 
@@ -20,24 +20,6 @@ SET time_zone = "+00:00";
 --
 -- Βάση δεδομένων: `hotel`
 --
-
--- --------------------------------------------------------
-
---
--- Δομή πίνακα για τον πίνακα `customer`
---
-
-CREATE TABLE `customer` (
-  `customer_id` int(5) NOT NULL,
-  `name` varchar(25) NOT NULL,
-  `sex` int(2) NOT NULL,
-  `dob` date NOT NULL,
-  `phone` varchar(20) NOT NULL,
-  `email` varchar(50) NOT NULL,
-  `arrival_date` datetime DEFAULT NULL,
-  `identification_no` varchar(7) NOT NULL,
-  `certification_auth` varchar(25) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Άδειασμα δεδομένων του πίνακα `customer`
@@ -245,18 +227,6 @@ INSERT INTO `customer` (`customer_id`, `name`, `sex`, `dob`, `phone`, `email`, `
 (199, 'Nissim Mcgee', 2, '1990-07-02', '1-339-329-6979', 'eu.eros@amagnaLorem.com', NULL, 'R9A 7O5', 'Greece'),
 (200, 'Ria Wells', 1, '1960-05-27', '1-425-307-2144', 'euismod@dignissimpharetra.org', NULL, 'W9X 0W5', 'Greece');
 
--- --------------------------------------------------------
-
---
--- Δομή πίνακα για τον πίνακα `facility_room`
---
-
-CREATE TABLE `facility_room` (
-  `facility_id` int(5) NOT NULL,
-  `site_id` int(5) NOT NULL,
-  `service_id` int(5) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
 --
 -- Άδειασμα δεδομένων του πίνακα `facility_room`
 --
@@ -297,17 +267,6 @@ INSERT INTO `facility_room` (`facility_id`, `site_id`, `service_id`) VALUES
 (33, 58, 5),
 (34, 59, 5),
 (35, 60, 6);
-
--- --------------------------------------------------------
-
---
--- Δομή πίνακα για τον πίνακα `has_access`
---
-
-CREATE TABLE `has_access` (
-  `customer_id` int(5) NOT NULL,
-  `site_id` int(5) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Άδειασμα δεδομένων του πίνακα `has_access`
@@ -6468,19 +6427,6 @@ INSERT INTO `has_access` (`customer_id`, `site_id`) VALUES
 (200, 60),
 (200, 579);
 
--- --------------------------------------------------------
-
---
--- Δομή πίνακα για τον πίνακα `is_charged`
---
-
-CREATE TABLE `is_charged` (
-  `customer_id` int(5) NOT NULL,
-  `service_id` int(5) NOT NULL,
-  `date` datetime NOT NULL,
-  `amount` float(5,2) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
 --
 -- Άδειασμα δεδομένων του πίνακα `is_charged`
 --
@@ -7707,17 +7653,6 @@ INSERT INTO `is_charged` (`customer_id`, `service_id`, `date`, `amount`) VALUES
 (200, 6, '2021-05-22 10:16:00', 23.11),
 (200, 6, '2021-05-22 19:16:00', 10.99);
 
--- --------------------------------------------------------
-
---
--- Δομή πίνακα για τον πίνακα `is_registered`
---
-
-CREATE TABLE `is_registered` (
-  `customer_id` int(5) NOT NULL,
-  `service_id` int(5) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
 --
 -- Άδειασμα δεδομένων του πίνακα `is_registered`
 --
@@ -8615,17 +8550,6 @@ INSERT INTO `is_registered` (`customer_id`, `service_id`) VALUES
 (200, 5),
 (200, 6);
 
--- --------------------------------------------------------
-
---
--- Δομή πίνακα για τον πίνακα `room`
---
-
-CREATE TABLE `room` (
-  `room_id` int(5) NOT NULL,
-  `site_id` int(5) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
 --
 -- Άδειασμα δεδομένων του πίνακα `room`
 --
@@ -9032,18 +8956,6 @@ INSERT INTO `room` (`room_id`, `site_id`) VALUES
 (579, 579),
 (580, 580);
 
--- --------------------------------------------------------
-
---
--- Δομή πίνακα για τον πίνακα `service`
---
-
-CREATE TABLE `service` (
-  `service_id` int(5) NOT NULL,
-  `name` varchar(20) NOT NULL,
-  `category` varchar(25) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
 --
 -- Άδειασμα δεδομένων του πίνακα `service`
 --
@@ -9055,18 +8967,6 @@ INSERT INTO `service` (`service_id`, `name`, `category`) VALUES
 (4, 'Gym', 'Beauty & Health'),
 (5, 'Sauna', 'Beauty & Health'),
 (6, 'Salon', 'Beauty & Health');
-
--- --------------------------------------------------------
-
---
--- Δομή πίνακα για τον πίνακα `site`
---
-
-CREATE TABLE `site` (
-  `site_id` int(5) NOT NULL,
-  `name` varchar(30) NOT NULL,
-  `floor` int(3) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Άδειασμα δεδομένων του πίνακα `site`
@@ -9535,19 +9435,6 @@ INSERT INTO `site` (`site_id`, `name`, `floor`) VALUES
 (579, 'Room 579', 5),
 (580, 'Room 580', 5);
 
--- --------------------------------------------------------
-
---
--- Δομή πίνακα για τον πίνακα `stays`
---
-
-CREATE TABLE `stays` (
-  `customer_id` int(5) NOT NULL,
-  `room_id` int(5) NOT NULL,
-  `datefrom` date NOT NULL,
-  `dateto` date NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
 --
 -- Άδειασμα δεδομένων του πίνακα `stays`
 --
@@ -9753,19 +9640,6 @@ INSERT INTO `stays` (`customer_id`, `room_id`, `datefrom`, `dateto`) VALUES
 (198, 575, '2021-05-20', '2021-05-26'),
 (199, 577, '2021-05-20', '2021-05-24'),
 (200, 579, '2021-05-21', '2021-05-25');
-
--- --------------------------------------------------------
-
---
--- Δομή πίνακα για τον πίνακα `visited`
---
-
-CREATE TABLE `visited` (
-  `customer_id` int(5) NOT NULL,
-  `site_id` int(5) NOT NULL,
-  `arrival` datetime NOT NULL,
-  `departure` datetime NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Άδειασμα δεδομένων του πίνακα `visited`
@@ -20944,130 +20818,6 @@ INSERT INTO `visited` (`customer_id`, `site_id`, `arrival`, `departure`) VALUES
 (200, 579, '2021-05-23 19:32:00', '2021-05-24 09:00:00'),
 (200, 579, '2021-05-24 10:32:00', '2021-05-24 18:00:00'),
 (200, 579, '2021-05-24 19:32:00', '2021-05-25 09:00:00');
-
---
--- Ευρετήρια για άχρηστους πίνακες
---
-
---
--- Ευρετήρια για πίνακα `customer`
---
-ALTER TABLE `customer`
-  ADD PRIMARY KEY (`customer_id`);
-
---
--- Ευρετήρια για πίνακα `facility_room`
---
-ALTER TABLE `facility_room`
-  ADD PRIMARY KEY (`facility_id`),
-  ADD KEY `site_id` (`site_id`),
-  ADD KEY `service_id` (`service_id`);
-
---
--- Ευρετήρια για πίνακα `has_access`
---
-ALTER TABLE `has_access`
-  ADD PRIMARY KEY (`customer_id`,`site_id`),
-  ADD KEY `site_id` (`site_id`);
-
---
--- Ευρετήρια για πίνακα `is_charged`
---
-ALTER TABLE `is_charged`
-  ADD PRIMARY KEY (`customer_id`,`service_id`,`date`),
-  ADD KEY `service_id` (`service_id`);
-
---
--- Ευρετήρια για πίνακα `is_registered`
---
-ALTER TABLE `is_registered`
-  ADD PRIMARY KEY (`customer_id`,`service_id`),
-  ADD KEY `service_id` (`service_id`);
-
---
--- Ευρετήρια για πίνακα `room`
---
-ALTER TABLE `room`
-  ADD PRIMARY KEY (`room_id`),
-  ADD KEY `site_id` (`site_id`);
-
---
--- Ευρετήρια για πίνακα `service`
---
-ALTER TABLE `service`
-  ADD PRIMARY KEY (`service_id`);
-
---
--- Ευρετήρια για πίνακα `site`
---
-ALTER TABLE `site`
-  ADD PRIMARY KEY (`site_id`);
-
---
--- Ευρετήρια για πίνακα `stays`
---
-ALTER TABLE `stays`
-  ADD PRIMARY KEY (`customer_id`,`room_id`),
-  ADD KEY `room_id` (`room_id`);
-
---
--- Ευρετήρια για πίνακα `visited`
---
-ALTER TABLE `visited`
-  ADD PRIMARY KEY (`customer_id`,`site_id`,`arrival`),
-  ADD KEY `site_id` (`site_id`);
-
---
--- Περιορισμοί για άχρηστους πίνακες
---
-
---
--- Περιορισμοί για πίνακα `facility_room`
---
-ALTER TABLE `facility_room`
-  ADD CONSTRAINT `facility_room_ibfk_1` FOREIGN KEY (`site_id`) REFERENCES `site` (`site_id`),
-  ADD CONSTRAINT `facility_room_ibfk_2` FOREIGN KEY (`service_id`) REFERENCES `service` (`service_id`);
-
---
--- Περιορισμοί για πίνακα `has_access`
---
-ALTER TABLE `has_access`
-  ADD CONSTRAINT `has_access_ibfk_1` FOREIGN KEY (`customer_id`) REFERENCES `customer` (`customer_id`),
-  ADD CONSTRAINT `has_access_ibfk_2` FOREIGN KEY (`site_id`) REFERENCES `site` (`site_id`);
-
---
--- Περιορισμοί για πίνακα `is_charged`
---
-ALTER TABLE `is_charged`
-  ADD CONSTRAINT `is_charged_ibfk_1` FOREIGN KEY (`customer_id`) REFERENCES `customer` (`customer_id`),
-  ADD CONSTRAINT `is_charged_ibfk_2` FOREIGN KEY (`service_id`) REFERENCES `service` (`service_id`);
-
---
--- Περιορισμοί για πίνακα `is_registered`
---
-ALTER TABLE `is_registered`
-  ADD CONSTRAINT `is_registered_ibfk_1` FOREIGN KEY (`customer_id`) REFERENCES `customer` (`customer_id`),
-  ADD CONSTRAINT `is_registered_ibfk_2` FOREIGN KEY (`service_id`) REFERENCES `service` (`service_id`);
-
---
--- Περιορισμοί για πίνακα `room`
---
-ALTER TABLE `room`
-  ADD CONSTRAINT `room_ibfk_1` FOREIGN KEY (`site_id`) REFERENCES `site` (`site_id`);
-
---
--- Περιορισμοί για πίνακα `stays`
---
-ALTER TABLE `stays`
-  ADD CONSTRAINT `stays_ibfk_1` FOREIGN KEY (`customer_id`) REFERENCES `customer` (`customer_id`),
-  ADD CONSTRAINT `stays_ibfk_2` FOREIGN KEY (`room_id`) REFERENCES `room` (`room_id`);
-
---
--- Περιορισμοί για πίνακα `visited`
---
-ALTER TABLE `visited`
-  ADD CONSTRAINT `visited_ibfk_1` FOREIGN KEY (`customer_id`) REFERENCES `customer` (`customer_id`),
-  ADD CONSTRAINT `visited_ibfk_2` FOREIGN KEY (`site_id`) REFERENCES `site` (`site_id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
