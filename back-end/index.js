@@ -90,7 +90,7 @@ app.get("/agegroup/mostvisited/:time", (req, res) => {
   }
   const period = req.params.time == "month" ? 30 : 365;
   con.query(
-    "SELECT IF(q.age = 1, '20-40', IF(q.age=2, '41-60', IF(q.age=3, '61+', NULL))) AS age_group, q.name, q.site_id, q.floor, MAX(q.visits) AS visits FROM (SELECT a.age, v.site_id, s.name, s.floor, COUNT(*) AS visits FROM (SELECT customer_id, IF(YEAR(CURDATE()) - YEAR(dob) >= 61, 3, IF(YEAR(CURDATE()) - YEAR(dob) >= 41, 2, IF(YEAR(CURDATE()) - YEAR(dob) >= 20, 1, NULL))) AS age FROM customer) a INNER JOIN visited v ON v.customer_id = a.customer_id INNER JOIN site s ON s.site_id = v.site_id WHERE DATEDIFF(NOW(), v.arrival) < ? GROUP BY v.site_id, a.age ORDER BY a.age, visits desc) q GROUP BY q.age",
+    "SELECT age_group, q.name, q.site_id, q.floor, MAX(q.visits) AS visits FROM (SELECT a.age_group, v.site_id, s.name, s.floor, COUNT(*) AS visits FROM age_group a INNER JOIN visited v ON v.customer_id = a.customer_id INNER JOIN site s ON s.site_id = v.site_id WHERE DATEDIFF(NOW(), v.arrival) < ? GROUP BY v.site_id, a.age_group ORDER BY a.age_group, visits desc) q GROUP BY q.age_group;",
     [period],
     (err, result, fields) => {
       if (err) throw err;
@@ -105,7 +105,7 @@ app.get("/agegroup/mostused/:time", (req, res) => {
   }
   const period = req.params.time == "month" ? 30 : 365;
   con.query(
-    "SELECT IF(q.age = 1, '20-40', IF(q.age=2, '41-60', IF(q.age=3, '61+', NULL))) AS age_group, q.name service_name, MAX(q.times_used) times_used FROM (SELECT a.age, ch.service_id, s.name, COUNT(*) AS times_used FROM (SELECT customer_id, IF(YEAR(CURDATE()) - YEAR(dob) >= 61, 3, IF(YEAR(CURDATE()) - YEAR(dob) >= 41, 2, IF(YEAR(CURDATE()) - YEAR(dob) >= 20, 1, NULL))) AS age FROM customer) a INNER JOIN is_charged ch ON ch.customer_id = a.customer_id INNER JOIN service s ON s.service_id = ch.service_id WHERE DATEDIFF(NOW(), ch.date) < ? GROUP BY ch.service_id, a.age ORDER BY a.age, times_used desc) q GROUP BY q.age",
+    "SELECT age_group, q.name service_name, MAX(q.times_used) times_used FROM (SELECT a.age_group, ch.service_id, s.name, COUNT(*) AS times_used FROM age_group a INNER JOIN is_charged ch ON ch.customer_id = a.customer_id INNER JOIN service s ON s.service_id = ch.service_id WHERE DATEDIFF(NOW(), ch.date) < ? GROUP BY ch.service_id, a.age_group ORDER BY a.age_group, times_used desc) q GROUP BY q.age_group;",
     [period],
     (err, result, fields) => {
       if (err) throw err;
@@ -120,13 +120,27 @@ app.get("/agegroup/mostcustomers/:time", (req, res) => {
   }
   const period = req.params.time == "month" ? 30 : 365;
   con.query(
-    "SELECT IF(q.age = 1, '20-40', IF(q.age=2, '41-60', IF(q.age=3, '61+', NULL))) AS age_group, q.name service_name, MAX(q.customers) customers FROM (SELECT a.age, ch.service_id, s.name, COUNT(DISTINCT a.customer_id) AS customers FROM (SELECT customer_id, IF(YEAR(CURDATE()) - YEAR(dob) >= 61, 3, IF(YEAR(CURDATE()) - YEAR(dob) >= 41, 2, IF(YEAR(CURDATE()) - YEAR(dob) >= 20, 1, NULL))) AS age FROM customer) a INNER JOIN is_charged ch ON ch.customer_id = a.customer_id INNER JOIN service s ON s.service_id = ch.service_id WHERE DATEDIFF(NOW(), ch.date) < ? GROUP BY ch.service_id, a.age ORDER BY a.age, customers desc) q GROUP BY q.age",
+    "SELECT age_group, q.name service_name, MAX(q.customers) customers FROM (SELECT a.age_group, ch.service_id, s.name, COUNT(DISTINCT a.customer_id) AS customers FROM age_group a INNER JOIN is_charged ch ON ch.customer_id = a.customer_id INNER JOIN service s ON s.service_id = ch.service_id WHERE DATEDIFF(NOW(), ch.date) < ? GROUP BY ch.service_id, a.age_group ORDER BY a.age_group, customers desc) q GROUP BY q.age_group",
     [period],
     (err, result, fields) => {
       if (err) throw err;
       res.status(200).send(result);
     }
   );
+});
+
+app.get("/sales", (req, res) => {
+  con.query("SELECT * FROM salesview", (err, result, fields) => {
+    if (err) throw err;
+    res.status(200).send(result);
+  });
+});
+
+app.get("/customer", (req, res) => {
+  con.query("SELECT * FROM customerview", (err, result, fields) => {
+    if (err) throw err;
+    res.status(200).send(result);
+  });
 });
 
 app.listen(4001, () => {
