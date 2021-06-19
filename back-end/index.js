@@ -3,7 +3,10 @@ const axios = require("axios");
 const cors = require("cors");
 const mysql = require("mysql");
 
-const port = 3306; //change this
+require("dotenv").config();
+
+const port = process.env.db_port || 3306; //change this
+const service_port = process.env.service_port || 4001;
 
 const app = express();
 app.use(express.json());
@@ -139,10 +142,13 @@ app.get("/sales", (req, res) => {
 app.get("/customer", (req, res) => {
   con.query("SELECT * FROM customerview", (err, result, fields) => {
     if (err) throw err;
+    for (let row of result) {
+      row.arrival_date = row.arrival_date.toLocaleString();
+    }
     res.status(200).send(result);
   });
 });
 
-app.listen(4001, () => {
-  console.log("Listening on port 4001...");
+app.listen(service_port, () => {
+  console.log("Listening on port " + service_port + "...");
 });
