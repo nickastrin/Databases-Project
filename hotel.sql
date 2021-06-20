@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 20, 2021 at 01:22 AM
+-- Generation Time: Jun 20, 2021 at 02:46 PM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.4.6
 
@@ -28,7 +28,7 @@ SET time_zone = "+00:00";
 -- (See below for the actual view)
 --
 CREATE TABLE `age_group` (
-`customer_id` int(5)
+`customer_id` int(11)
 ,`age_group` varchar(5)
 );
 
@@ -3639,7 +3639,7 @@ CREATE TABLE `visited` (
   `site_id` int(5) NOT NULL,
   `arrival` datetime NOT NULL,
   `departure` datetime NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ;
 
 --
 -- Dumping data for table `visited`
