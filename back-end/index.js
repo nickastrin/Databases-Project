@@ -39,7 +39,7 @@ app.post("/service-search", (req, res) => {
     where = where + " AND ser.name = '" + req.body.service + "'";
   }
   con.query(
-    "SELECT ch.date, ch.amount, ser.name as service, cust.name FROM is_charged ch INNER JOIN customer cust on cust.customer_id = ch.customer_id INNER JOIN service ser ON ser.service_id = ch.service_id" +
+    "SELECT ch.date, ch.amount, ser.name as service, cust.name FROM is_charged ch INNER JOIN customer cust ON cust.customer_id = ch.customer_id INNER JOIN service ser ON ser.service_id = ch.service_id" +
       where,
     (err, result, fields) => {
       if (err) throw err;
@@ -135,6 +135,12 @@ app.get("/agegroup/mostcustomers/:time", (req, res) => {
 app.get("/sales", (req, res) => {
   con.query("SELECT * FROM salesview", (err, result, fields) => {
     if (err) throw err;
+    for (let row of result) {
+      row.max_earnings = row.max_earnings + "€";
+      row.total_earnings = row.total_earnings + "€";
+      const avg = row.average_earnings.toString();
+      row.average_earnings = avg.substring(0, avg.indexOf(".") + 3) + "€";
+    }
     res.status(200).send(result);
   });
 });
