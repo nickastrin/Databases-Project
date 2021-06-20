@@ -1,0 +1,154 @@
+.list-questions-wrapper {
+  background: #292930;
+  border: thin solid transparent;
+  border-radius: 2px;
+  padding: 10px;
+  padding-right: 10px;
+  margin-left: 50%;
+  transform: translate(-50%, 0%);
+  margin-bottom: 20px;
+  min-height: 40px;
+  width: 50%;
+}
+
+.divider {
+  border: thin solid transparent;
+  border-radius: 4px;
+  background-color: rgb(148, 221, 243);
+}
+
+.questions-list {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+}
+
+.questions-list li {
+  align-items: center;
+  border-radius: 2px;
+  list-style: none;
+}
+
+.username-font {
+  display: block;
+  margin-bottom: 10px;
+  color: white;
+  font-weight: 300;
+  margin-left: 20px;
+}
+
+.question-select {
+  font-size: 22px;
+  color: white;
+  font-weight: 500;
+  margin-left: 20px;
+}
+
+.form-font-2 {
+  float: left;
+  position: absolute;
+  text-align: left;
+  left: 24%;
+  top: 110px;
+  width: 100%;
+  min-width: 300px;
+}
+
+.search-bar {
+  border: none;
+  text-align: center;
+  border-radius: 4px;
+  margin-top: 180px;
+  margin-left: 50%;
+  transform: translate(-50%, 0%);
+  height: 50px;
+  width: 40%;
+  min-width: 300px;
+  font-size: 17px;
+}
+
+.submit-btn {
+  margin-top: 10px;
+  height: 50px;
+  margin-left: 39.7%;
+  transform: translate(-50%, 0%);
+  width: 19.5%;
+  min-width: 200px;
+  color: white;
+  border: transparent;
+  border-radius: 4px;
+  background-color: rgb(94, 159, 185);
+  text-transform: uppercase;
+}
+
+.submit-btn:hover {
+  cursor: pointer;
+  background-color: rgb(72, 135, 160);
+}
+
+.select-list {
+  border: none;
+  text-align: center;
+  border-radius: 4px;
+  margin-right: 10px;
+  transform: translate(-50%, 0%);
+  height: 50px;
+  width: 20%;
+  min-width: 300px;
+  font-size: 17px;
+}
+
+.clear-btn {
+  position: absolute;
+  top: 302px;
+  height: 50px;
+  margin-left: 60.3%;
+  transform: translate(-50%, 0%);
+  width: 19.5%;
+  min-width: 200px;
+  color: white;
+  border: transparent;
+  border-radius: 4px;
+  background-color: #50505e;
+  text-transform: uppercase;
+}
+
+.clear-btn:hover {
+  cursor: pointer;
+  background-color: #3c3c49;
+}
+
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  opacity: 1;
+}
+
+.services-style-list {
+  border: none;
+  text-align: center;
+  border-radius: 4px;
+  margin: 10px;
+  height: 50px;
+  width: 5%;
+  min-width: 300px;
+  font-size: 17px;
+}
+
+.view-btn {
+  margin-top: 10px;
+  height: 50px;
+  margin-left: 50%;
+  transform: translate(-50%, 0%);
+  width: 19.5%;
+  min-width: 300px;
+  color: white;
+  border: transparent;
+  border-radius: 4px;
+  background-color: rgb(94, 159, 185);
+  text-transform: uppercase;
+}
+
+.view-btn:hover {
+  cursor: pointer;
+  background-color: rgb(72, 135, 160);
+}

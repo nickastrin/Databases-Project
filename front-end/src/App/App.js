@@ -6,6 +6,7 @@ import Home from "../Home/Home.js";
 import Services from "../Services/Services.js";
 import Infected from "../Infected/Infected.js";
 import Frequency from "../Frequency/Frequency.js";
+import Quarantine from "../Quarantine/Quarantine.js";
 
 import "./App.css";
 
@@ -26,6 +27,9 @@ function App() {
           </Route>
           <Route path="/frequency">
             <Frequency />
+          </Route>
+          <Route path="/quarantine">
+            <Quarantine />
           </Route>
         </Switch>
       </BrowserRouter>

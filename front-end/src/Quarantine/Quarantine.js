@@ -6,17 +6,17 @@ import "../App/Style.css";
 require("dotenv").config();
 const backendPort = process.env.REACT_APP_BACKEND_PORT;
 
-export default function Infected() {
+export default function Quarantine() {
   const [tracker, setTracker] = useState("");
   const [data, setData] = useState([]);
-  const [show, setShow] = useState(false);
+  const [show, setShow] = useState(true);
 
   const handleSubmit = async (e) => {
     e.preventDefault(e);
 
     setShow(true);
     await axios
-      .get(`http://localhost:${backendPort}/infected/places/${tracker}`)
+      .get(`http://localhost:${backendPort}/infected/people/${tracker}`)
       .then((response) => {
         setData(response.data);
       });
@@ -30,20 +30,12 @@ export default function Infected() {
             {data.map((value, key) => {
               return (
                 <li key={key}>
-                  <div style={{ padding: "15px 10px 10px 5px" }}>
-                    <span className="username-font">
-                      {"Name: " + value.name}
-                    </span>
-                    <span className="username-font">
-                      {"Floor: " + value.floor}
-                    </span>
-                    <span className="username-font">
-                      {"Arrival: " + value.arrival}
-                    </span>
-                    <span className="username-font">
-                      {"Departure: " + value.departure}
-                    </span>
-                  </div>
+                  <span
+                    className="username-font"
+                    style={{ padding: "15px 10px 10px 5px" }}
+                  >
+                    {"Client Name: " + value.name}
+                  </span>
                   <hr className="divider" />
                 </li>
               );
@@ -67,7 +59,6 @@ export default function Infected() {
           type="text"
           value={tracker}
           maxLength="5"
-          minLength="1"
           onChange={(e) => setTracker(e.target.value)}
           className="search-bar"
         />

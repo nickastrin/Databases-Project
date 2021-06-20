@@ -43,6 +43,15 @@ const Navbar = () => {
         >
           COVID-19 Tracker
         </NavLink>
+        <NavLink
+          className="navbar-item"
+          activeClassName="selected"
+          exact
+          to="/quarantine"
+          style={{ float: "right", width: "200px" }}
+        >
+          Quarantined Clients
+        </NavLink>
       </div>
     </nav>
   );

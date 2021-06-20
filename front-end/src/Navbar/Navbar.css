@@ -7,7 +7,7 @@
 .navbar-logo {
   float: left;
   margin: 0 40px 0 50px;
-  color: #78f3ba;
+  color: rgb(148, 221, 243);
   padding-top: 15px;
   font-weight: bold;
   font-size: 18px;
@@ -28,12 +28,12 @@
 }
 
 .navbar-item:hover {
-  color: #78f3ba;
+  color: rgb(148, 221, 243);
   transition: ease-in 0.3s;
 }
 
 .navbar-item.selected {
-  color: #78f3ba;
+  color: rgb(148, 221, 243);
 }
 
 .navbar-item.selected::after {
@@ -41,7 +41,7 @@
   display: block;
   height: 2px;
   width: 100%;
-  background-color: #78f3ba;
+  background-color: rgb(148, 221, 243);
   position: absolute;
   top: 0px;
 }
@@ -67,7 +67,7 @@
 }
 
 .navbar-login:hover {
-  color: #78f3ba;
+  color: rgb(148, 221, 243);
   transition: ease-in 0.3s;
 }
 
