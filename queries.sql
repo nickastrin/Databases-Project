@@ -51,6 +51,17 @@ GROUP BY c.customer_id
 ORDER BY c.customer_id ASC;
 
 /*
+Query για τη δημιουργία βοηθητικού view που παράγει τα age groups.
+Περιλαμβάνεται και στο database dump
+*/
+CREATE VIEW age_group AS SELECT customer_id, "20-40" AS age_group FROM customer WHERE dob < DATE_SUB(CURDATE(), INTERVAL 20 YEAR) AND dob > DATE_SUB(CURDATE(), INTERVAL 40 YEAR)
+UNION
+SELECT customer_id, "41-60" AS age_group FROM customer WHERE dob < DATE_SUB(CURDATE(), INTERVAL 40 YEAR) AND dob > DATE_SUB(CURDATE(), INTERVAL 60 YEAR)
+UNION
+SELECT customer_id, "61+" AS age_group FROM customer WHERE dob < DATE_SUB(CURDATE(), INTERVAL 60 YEAR);
+
+
+/*
 Query για την εύρεση του πιο πολυσύχναστου χώρου (με τις περισσότερες επισκέψεις)
 ανά ηλικιακό group (20-40, 40-60, 61+)
 Στο συγκεκριμένο παράδειγμα το timePeriod είναι ορισμένο σε 30, που σημαίνει ότι
@@ -105,3 +116,25 @@ FROM
     GROUP BY ch.service_id, a.age_group
     ORDER BY a.age_group, customers desc) q
 GROUP BY q.age_group
+
+/*
+Query για τη δημιουργία της όψεις με τις πωλήσεις ανά υπηρεσία
+*/
+CREATE VIEW salesview AS
+SELECT s.name AS service, s.category, AVG(ch.amount) AS average_earnings, SUM(ch.amount) AS total_earnings, MAX(ch.amount) AS max_earnings, COUNT(*) AS transactions
+ FROM service s
+INNER JOIN is_charged ch
+ON ch.service_id = s.service_id
+GROUP BY s.service_id
+
+/*
+Query για τη δημιουργία της όψης με τα στοιχεία των πελατών
+*/
+CREATE VIEW customerview AS
+SELECT c.name, s.gender AS sex, c.phone, c.email, c.dob, c.arrival_date, c.certification_auth, c.identification_no, COUNT(*) AS registered_services
+FROM customer c
+INNER JOIN (SELECT 1 AS sex, "Male" AS gender UNION ALL SELECT 2, "Female" UNION ALL SELECT 3, "Other") s
+ON c.sex = s.sex
+INNER JOIN is_registered r
+ON c.customer_id = r.customer_id
+GROUP BY c.customer_id;
